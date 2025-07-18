@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # Flutter_testapp
 
-day9 -
+day9.dart : counter app
