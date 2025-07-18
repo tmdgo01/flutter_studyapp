@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_testapp/day10main.dart';
 import 'package:flutter_testapp/day9main.dart';
 import 'package:flutter_testapp/day9.dart';
+import 'package:flutter_testapp/day10fcolor.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,15 +32,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   final PageController _pageController = PageController();
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle = TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.bold,
-  );
+  // static const TextStyle optionStyle = TextStyle(
+  //   fontSize: 30,
+  //   fontWeight: FontWeight.bold,
+  // );
 
   final List<Widget> _widgetOptions = <Widget>[
     day9App(),
     day10App(),
     CounterApp(),
+    ColorGridApp(),
   ];
 
   @override
@@ -62,10 +64,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   icon: Icon(Icons.now_widgets),
                   label: 'Now',
                 ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.color_lens),
+                  label: 'Colors',
+                ),
               ],
               currentIndex: _selectedIndex,
-              selectedItemColor: Colors.white,
-              backgroundColor: Colors.deepPurpleAccent,
+              selectedItemColor: Colors.indigoAccent,
+              unselectedItemColor: Colors.grey,
               onTap: _onItemTapped,
             ),
           ),
