@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(day10App());
+  runApp(day9App());
 }
 
-class day10App extends StatelessWidget {
+class day9App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final item1 = Row(
