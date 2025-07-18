@@ -1,196 +1,88 @@
-// day10
-// StatelessWidget Demo
-
 import 'package:flutter/material.dart';
+import 'package:flutter_testapp/day10main.dart';
+import 'package:flutter_testapp/day9main.dart';
+import 'package:flutter_testapp/day9.dart';
 
-void main() {
-  runApp(day10App());
-}
+void main() => runApp(MyApp());
 
-class day10App extends StatelessWidget {
-  final Map info = {
-    "appTitle": "StatelessWidget Demo",
-    "appBarTitle": "Flutter official Site",
-    "titleImageLink":
-        "https://storage.googleapis.com/cms-storage-bucket/2f118a9971e4ca6ad737.png",
-    "titleSectionHeader": "Flutter on Mobile",
-    "titleSectionBody": "https://flutter.dev/multi-platform/mobile",
-    "textSection":
-        "Flutter is Google's UI toolkit for building beautiful, "
-        "Bring your app idea to more users from day one by"
-        " building with Flutter.",
-  };
+class MyApp extends StatelessWidget {
+  final _title = "Flutter SketchApp";
 
   @override
   Widget build(BuildContext context) {
-    final titleimage = _buildTitleimage(info['titleImageLink']!);
-    Widget textsection = _buildTextSection(info['textSection']!);
-    Widget buttonsection = _buildButtonSection();
-    Widget titlesection = _buildTitleSection(
-      info['titleSectionHeader']!,
-      info['titleSectionBody']!,
-    );
-
-    return MaterialApp(
-      title: info['appTitle']!,
-      home: Scaffold(
-        appBar: AppBar(title: Text(info['appBarTitle']!), centerTitle: true),
-        body: ListView(
-          children: [titleimage, titlesection, textsection, buttonsection],
-        ),
-      ),
-    );
+    return MaterialApp(title: _title, home: const MyStatefulWidget());
   }
 }
 
-Image _buildTitleimage(String imageName) {
-  return Image.network(imageName, width: 600, height: 240, fit: BoxFit.cover);
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
-Container _buildTitleSection(String name, String addr) {
-  return Container(
-    padding: const EdgeInsets.all(32),
-    child: Row(
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  // static const List<Widget> _widgetOptions = <Widget>[
+  //   Text('GO', style: optionStyle),
+  //   Text('HOME', style: optionStyle),
+  //   Text("NOW", style: optionStyle),
+  // ];
+
+  final PageController _pageController = PageController();
+  int _selectedIndex = 0;
+
+  static const TextStyle optionStyle = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+  );
+
+  final List<Widget> _widgetOptions = <Widget>[
+    day9App(),
+    day10App(),
+    CounterApp(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Flutter SketchApp')),
+      body: PageView(
+        controller: _pageController,
+        children: <Widget>[
+          Scaffold(
+            body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+            bottomNavigationBar: BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.directions_run),
+                  label: 'Go',
                 ),
-              ),
-              Text(addr, style: const TextStyle(color: Colors.grey)),
-            ],
-          ),
-        ),
-        const Counter(),
-      ],
-    ),
-  );
-}
-
-Widget _buildButtonSection() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    children: const [
-      StatefulButtonColumn(
-        baseColor: Colors.black,
-        icon: Icons.assistant_navigation,
-        label: "Visit",
-      ),
-      StatefulButtonColumn(
-        baseColor: Colors.black,
-        icon: Icons.add_alert_sharp,
-        label: "Alarm",
-      ),
-      StatefulButtonColumn(
-        baseColor: Colors.black,
-        icon: Icons.share,
-        label: "Share",
-      ),
-    ],
-  );
-}
-
-Container _buildTextSection(String section) {
-  return Container(
-    padding: const EdgeInsets.all(32),
-    child: Text(
-      section,
-      softWrap: true,
-      textAlign: TextAlign.justify,
-      style: const TextStyle(height: 1.5, fontSize: 15),
-    ),
-  );
-}
-
-class Counter extends StatefulWidget {
-  const Counter({Key? key}) : super(key: key);
-
-  @override
-  State<Counter> createState() => CounterState();
-}
-
-class CounterState extends State<Counter> {
-  int _counter = 0;
-  bool _boolStatus = false;
-  Color _stateColor = Colors.black;
-
-  void _buttonPressed() {
-    setState(() {
-      _boolStatus = !_boolStatus;
-      _counter += _boolStatus ? 1 : -1;
-      _stateColor = _boolStatus ? Colors.red : Colors.black;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          icon: const Icon(Icons.star),
-          onPressed: _buttonPressed,
-          color: _stateColor,
-        ),
-        Text("$_counter"),
-      ],
-    );
-  }
-}
-
-// ✅ 버튼 상태 변경이 가능한 Stateful 위젯
-class StatefulButtonColumn extends StatefulWidget {
-  final Color baseColor;
-  final IconData icon;
-  final String label;
-
-  const StatefulButtonColumn({
-    Key? key,
-    required this.baseColor,
-    required this.icon,
-    required this.label,
-  }) : super(key: key);
-
-  @override
-  State<StatefulButtonColumn> createState() => _StatefulButtonColumnState();
-}
-
-class _StatefulButtonColumnState extends State<StatefulButtonColumn> {
-  bool _isSelected = false;
-
-  void _toggleColor() {
-    setState(() {
-      _isSelected = !_isSelected;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Color currentColor = _isSelected ? Colors.red : widget.baseColor;
-
-    return GestureDetector(
-      onTap: _toggleColor,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(widget.icon, color: currentColor),
-          const SizedBox(height: 8),
-          Text(
-            widget.label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: currentColor,
+                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.now_widgets),
+                  label: 'Now',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              selectedItemColor: Colors.white,
+              backgroundColor: Colors.deepPurpleAccent,
+              onTap: _onItemTapped,
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }
