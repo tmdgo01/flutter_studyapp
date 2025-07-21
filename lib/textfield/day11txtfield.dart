@@ -8,6 +8,7 @@ class NormalTextFieldWidget extends StatefulWidget {
 class _NormalTextFieldWidgetState extends State<NormalTextFieldWidget> {
   String _text = '';
 
+  // maxlines 사용
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,6 +20,7 @@ class _NormalTextFieldWidgetState extends State<NormalTextFieldWidget> {
               labelText: "Enter text",
               border: OutlineInputBorder(),
             ),
+            maxLines: 5,
             onChanged: (value) {
               setState(() {
                 _text = value;

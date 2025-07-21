@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(title: const Text('Enter Example')),
       body: PageView(
         controller: _pageController,
-        physics: NeverScrollableScrollPhysics(), // 손으로 넘기지 못하도록
+        physics: NeverScrollableScrollPhysics(),
         children: _pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
