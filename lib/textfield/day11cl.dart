@@ -3,10 +3,13 @@
 // 2. 직업 입력 창(20글자 제한)
 // 3. 이메일 입력 창(20글자 제한)
 // 4. 자기소개 입력 창(500글자 제한, 최대 7줄 표기)
+// 추가 기능 : 제출 버튼
+// 제출 버튼을 누르면 입력된 내용을 출력하는 기능
+// (입력된 내용은 화면 아래에 출력)
 
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
+class day11clapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -105,6 +108,17 @@ class IntroductionInput extends StatelessWidget {
   }
 }
 
+class SubmitButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  SubmitButton({required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(onPressed: onPressed, child: Text('제출'));
+  }
+}
+
 void main() {
-  runApp(MyApp());
+  runApp(day11clapp());
 }

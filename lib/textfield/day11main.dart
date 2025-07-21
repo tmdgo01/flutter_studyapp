@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'day11txtfield.dart';
 import 'day11numbers.dart';
+import 'day11cl.dart';
+import 'day11addbutton.dart';
 
-void main() => runApp(App());
+void main() => runApp(day11App());
 
-class App extends StatelessWidget {
+class day11App extends StatelessWidget {
   final title = "TextField Example";
 
   @override
@@ -25,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = <Widget>[
     NormalTextFieldWidget(),
     CombinedTextFieldWidget(),
+    day11clapp(),
+    Day11AddButton(),
   ];
 
   void _onItemTapped(int index) {
@@ -58,6 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'TextField',
           ),
           BottomNavigationBarItem(icon: Icon(Icons.numbers), label: 'Numbers'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contact_mail),
+            label: 'Contact',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: '123Button'),
         ],
       ),
     );
