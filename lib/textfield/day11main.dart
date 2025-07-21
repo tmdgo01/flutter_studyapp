@@ -4,14 +4,18 @@ import 'day11numbers.dart';
 import 'day11cl.dart';
 import 'day11addbutton.dart';
 
-void main() => runApp(day11App());
+void main() => runApp(Day11App());
 
-class day11App extends StatelessWidget {
-  final title = "TextField Example";
+class Day11App extends StatelessWidget {
+  final String _title = "TextField Example";
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: title, home: HomeScreen());
+    return MaterialApp(
+      title: _title,
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen(), // ← 수정된 부분
+    );
   }
 }
 
@@ -25,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = <Widget>[
-    NormalTextFieldWidget(),
-    CombinedTextFieldWidget(),
-    day11clapp(),
-    Day11AddButton(),
+    NormalTextFieldWidget(), // From day11txtfield.dart
+    CombinedTextFieldWidget(), // From day11numbers.dart
+    Day11ClApp(), // From day11cl.dart (클래스 이름 UpperCamelCase 사용 권장)
+    Day11AddButton(), // From day11addbutton.dart
   ];
 
   void _onItemTapped(int index) {
@@ -55,6 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
+        selectedItemColor: Colors.indigoAccent,
+        unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
@@ -66,7 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.contact_mail),
             label: 'Contact',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.add), label: '123Button'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calculate),
+            label: 'Calculator',
+          ),
         ],
       ),
     );

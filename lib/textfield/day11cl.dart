@@ -1,29 +1,39 @@
-// 자기소개서 입력 화면
-// 1. 이름 입력 창(5글자 제한)
-// 2. 직업 입력 창(20글자 제한)
-// 3. 이메일 입력 창(20글자 제한)
-// 4. 자기소개 입력 창(500글자 제한, 최대 7줄 표기)
-// 추가 기능 : 제출 버튼
-// 제출 버튼을 누르면 입력된 내용을 출력하는 기능
-// (입력된 내용은 화면 아래에 출력)
+// 제출 버튼 수정
 
 import 'package:flutter/material.dart';
 
-class day11clapp extends StatelessWidget {
+void main() {
+  runApp(Day11ClApp());
+}
+
+class Day11ClApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TextField Example',
       home: Scaffold(
-        appBar: AppBar(title: const Text('TextField Example')),
+        appBar: AppBar(title: const Text('자기소개서 입력')),
         body: SafeArea(
-          child: Column(
-            children: [
-              NameInput(),
-              OccupationInput(),
-              EmailInput(),
-              IntroductionInput(),
-            ],
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  NameInput(),
+                  OccupationInput(),
+                  EmailInput(),
+                  IntroductionInput(),
+                  SubmitButton(
+                    onPressed: () {
+                      print("제출됨: 이름, 직업, 이메일, 자기소개");
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  InputResult(),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -31,94 +41,117 @@ class day11clapp extends StatelessWidget {
   }
 }
 
-class NameInput extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
+class NameInput extends StatefulWidget {
+  @override
+  _NameInputState createState() => _NameInputState();
+}
 
+class _NameInputState extends State<NameInput> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: _controller,
-        maxLength: 5,
-        decoration: InputDecoration(
-          labelText: '이름',
-          border: OutlineInputBorder(),
-        ),
+    return TextField(
+      controller: _controller,
+      maxLength: 5,
+      decoration: InputDecoration(
+        labelText: '이름',
+        border: OutlineInputBorder(),
       ),
     );
   }
 }
 
-class OccupationInput extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
+class OccupationInput extends StatefulWidget {
+  @override
+  _OccupationInputState createState() => _OccupationInputState();
+}
 
+class _OccupationInputState extends State<OccupationInput> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: _controller,
-        maxLength: 20,
-        decoration: InputDecoration(
-          labelText: '직업',
-          border: OutlineInputBorder(),
-        ),
+    return TextField(
+      controller: _controller,
+      maxLength: 20,
+      decoration: InputDecoration(
+        labelText: '직업',
+        border: OutlineInputBorder(),
       ),
     );
   }
 }
 
-class EmailInput extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
+class EmailInput extends StatefulWidget {
+  @override
+  _EmailInputState createState() => _EmailInputState();
+}
 
+class _EmailInputState extends State<EmailInput> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: _controller,
-        maxLength: 30,
-        decoration: InputDecoration(
-          labelText: '이메일',
-          border: OutlineInputBorder(),
-        ),
+    return TextField(
+      controller: _controller,
+      maxLength: 30,
+      decoration: InputDecoration(
+        labelText: '이메일',
+        border: OutlineInputBorder(),
       ),
     );
   }
 }
 
-class IntroductionInput extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
+class IntroductionInput extends StatefulWidget {
+  @override
+  _IntroductionInputState createState() => _IntroductionInputState();
+}
 
+class _IntroductionInputState extends State<IntroductionInput> {
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        controller: _controller,
-        maxLength: 500,
-        decoration: InputDecoration(
-          labelText: '자기소개',
-          border: OutlineInputBorder(),
-        ),
-        maxLines: 7,
+    return TextField(
+      controller: _controller,
+      maxLength: 500,
+      decoration: InputDecoration(
+        labelText: '자기소개',
+        border: OutlineInputBorder(),
       ),
+      maxLines: 7,
     );
   }
 }
 
 class SubmitButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback onPressed; // onPressed 파라미터
 
   SubmitButton({required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: onPressed, child: Text('제출'));
+    return ElevatedButton(
+      onPressed: onPressed, // 버튼이 눌렸을 때 onPressed 실행
+      child: Text('제출'),
+    );
   }
 }
 
-void main() {
-  runApp(day11clapp());
+class InputResult extends StatelessWidget {
+  final String name = "홍길동"; // 예시 입력 값
+  final String occupation = "프로그래머";
+  final String email = "hong@example.com";
+  final String introduction = "저는 열정적으로 코드를 작성하는 프로그래머입니다.";
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('이름: $name', style: TextStyle(fontSize: 16)),
+        Text('직업: $occupation', style: TextStyle(fontSize: 16)),
+        Text('이메일: $email', style: TextStyle(fontSize: 16)),
+        Text('자기소개: $introduction', style: TextStyle(fontSize: 16)),
+      ],
+    );
+  }
 }
