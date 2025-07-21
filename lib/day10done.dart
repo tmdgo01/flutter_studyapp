@@ -3,6 +3,8 @@ import 'package:flutter_testapp/day10demo.dart';
 import 'package:flutter_testapp/day9main.dart';
 import 'package:flutter_testapp/day9.dart';
 import 'package:flutter_testapp/day10fcolor.dart';
+import 'package:flutter_testapp/day9mul.dart';
+import 'package:flutter_testapp/day11mul.dart';
 
 void main() => runApp(MyApp());
 
@@ -42,6 +44,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     day10App(),
     CounterApp(),
     ColorGridApp(),
+    day11mul(),
   ];
 
   @override
@@ -67,6 +70,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.color_lens),
                   label: 'Colors',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.multiple_stop),
+                  label: 'Multiplication',
                 ),
               ],
               currentIndex: _selectedIndex,

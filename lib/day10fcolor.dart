@@ -39,10 +39,6 @@ class _ColorGridPageState extends State<ColorGridPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("What's your favorite color?"),
-        centerTitle: true,
-      ),
       body: Column(
         children: [
           Expanded(
@@ -60,6 +56,7 @@ class _ColorGridPageState extends State<ColorGridPage> {
                     setState(() {
                       _selectedColorName = name;
                     });
+                    _showColorDialog(context, name);
                   },
                   child: Container(
                     color: color,
@@ -92,6 +89,27 @@ class _ColorGridPageState extends State<ColorGridPage> {
           ),
         ],
       ),
+    );
+  }
+
+  // alert
+  void _showColorDialog(BuildContext context, String colorName) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Selected Color"),
+          content: Text("selected: $colorName"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
