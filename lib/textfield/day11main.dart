@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
     NormalTextFieldWidget(),
     CombinedTextFieldWidget(),
     Day11ClApp(),
-    Day11AddButton(),
+    day11clacapp(),
   ];
 
   void _onItemTapped(int index) {

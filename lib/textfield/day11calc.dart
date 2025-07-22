@@ -5,12 +5,12 @@
 // num1과 입력된 숫자를 연산하여 결과를 출력하는 프로그램
 import 'package:flutter/material.dart';
 
-class Day11AddButton extends StatefulWidget {
+class day11clacapp extends StatefulWidget {
   @override
-  _Day11AddButtonState createState() => _Day11AddButtonState();
+  _day11clacappState createState() => _day11clacappState();
 }
 
-class _Day11AddButtonState extends State<Day11AddButton> {
+class _day11clacappState extends State<day11clacapp> {
   String displayText = '';
   double? num1;
   String operator = '';
@@ -135,4 +135,4 @@ class _Day11AddButtonState extends State<Day11AddButton> {
   }
 }
 
-void main() => runApp(MaterialApp(home: Scaffold(body: Day11AddButton())));
+void main() => runApp(MaterialApp(home: Scaffold(body: day11clacapp())));
