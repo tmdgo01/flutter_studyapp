@@ -33,12 +33,11 @@ class _SwitchWidgetState extends State<SwitchWidget> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'Switch is ${_isSwitched ? "ON" : "OFF"}',
-          style: TextStyle(fontSize: 24),
-        ),
+        Text('${_isSwitched ? "ON" : "OFF"}', style: TextStyle(fontSize: 24)),
         Switch(
           value: _isSwitched,
+          activeColor: Colors.indigo,
+          inactiveThumbColor: Colors.black,
           onChanged: (value) {
             setState(() {
               _isSwitched = value;
