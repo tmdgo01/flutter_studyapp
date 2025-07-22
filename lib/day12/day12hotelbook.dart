@@ -1,6 +1,7 @@
 // 호텔 예약 화면
 // 기능 1. 호텔에 묵을 날짜, 시간 설정
-// 기능 2. 호텔 옵션 택 1 (스위트 룸, 오션 뷰, 레이크 뷰 등)
+// 기능 2-1. 호텔 옵션 택 1 (마운틴 뷰, 오션 뷰, 레이크 뷰 등)
+// 기능 2-2. 호텔 옵션 택 2 (마운틴 뷰, 디럭스 룸, VIP 룸 등)
 // 기능 3. 호텔 사용자 이름 입력
 // 기능 4. 조식 서비스 on/off
 // 기능 5. [개인 정보 제공 동의] 체크박스
@@ -34,7 +35,7 @@ class HotelBookingScreen extends StatefulWidget {
 class _HotelBookingScreenState extends State<HotelBookingScreen> {
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
-  String _selectedOption = '스위트 룸';
+  String _selectedOption = '마운틴 뷰';
   String _userName = '';
   bool _breakfastIncluded = false;
   bool _privacyAgreement = false;
@@ -131,7 +132,7 @@ class _HotelBookingScreenState extends State<HotelBookingScreen> {
             Text('호텔 옵션:', style: TextStyle(fontSize: 18)),
             DropdownButton<String>(
               value: _selectedOption,
-              items: <String>['스위트 룸', '오션 뷰', '레이크 뷰']
+              items: <String>['마운틴 뷰', '오션 뷰', '레이크 뷰']
                   .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
