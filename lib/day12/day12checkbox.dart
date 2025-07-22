@@ -36,13 +36,13 @@ class _CheckboxWidgetState extends State<CheckboxWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '${_isChecked ? "Checked" : "Unchecked"}',
+          '이용 약관에 동의하십니까? \n${_isChecked ? "예" : "아니오"}',
           style: TextStyle(fontSize: 24),
         ),
         Checkbox(
           value: _isChecked,
           activeColor: Colors.indigo,
-          checkColor: Colors.black,
+          checkColor: Colors.white,
           onChanged: (bool? value) {
             setState(() {
               _isChecked = value ?? false;

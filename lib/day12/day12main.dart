@@ -2,6 +2,7 @@ import 'package:flutter_testapp/textfield/day11calc.dart';
 import 'package:flutter_testapp/textfield/day11txtfield.dart';
 import 'day12switch.dart';
 import 'day12checkbox.dart';
+import 'day12radiobu.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -35,6 +36,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     day11clacapp(),
     SwitchWidgetApp(),
     day12checkboxapp(),
+    RadioButtonApp(),
   ];
 
   final PageController _pageController = PageController();
@@ -78,6 +80,10 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.check_box),
                   label: "체크박스",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.radio_button_checked),
+                  label: "라디오 버튼",
                 ),
               ],
               currentIndex: _selectedIndex,
