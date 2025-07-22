@@ -5,12 +5,12 @@
 
 import 'package:flutter/material.dart';
 
-class Day11AddButton extends StatefulWidget {
+class day11_123button extends StatefulWidget {
   @override
-  _Day11AddButtonState createState() => _Day11AddButtonState();
+  _day11_123buttonState createState() => _day11_123buttonState();
 }
 
-class _Day11AddButtonState extends State<Day11AddButton> {
+class _day11_123buttonState extends State<day11_123button> {
   String _input = '';
 
   void _addNumber(String number) {
@@ -51,4 +51,4 @@ class _Day11AddButtonState extends State<Day11AddButton> {
   }
 }
 
-void main() => runApp(MaterialApp(home: Scaffold(body: Day11AddButton())));
+void main() => runApp(MaterialApp(home: Scaffold(body: day11_123button())));

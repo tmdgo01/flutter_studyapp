@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'day11txtfield.dart';
 import 'day11numbers.dart';
 import 'day11cl.dart';
-import 'day11addbutton.dart';
+import 'day11calc.dart';
 
 void main() => runApp(Day11App());
 
@@ -14,7 +14,7 @@ class Day11App extends StatelessWidget {
     return MaterialApp(
       title: _title,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(), // ← 수정된 부분
+      home: HomeScreen(),
     );
   }
 }
@@ -29,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = <Widget>[
-    NormalTextFieldWidget(), // From day11txtfield.dart
-    CombinedTextFieldWidget(), // From day11numbers.dart
-    Day11ClApp(), // From day11cl.dart (클래스 이름 UpperCamelCase 사용 권장)
-    Day11AddButton(), // From day11addbutton.dart
+    NormalTextFieldWidget(),
+    CombinedTextFieldWidget(),
+    Day11ClApp(),
+    Day11AddButton(),
   ];
 
   void _onItemTapped(int index) {
