@@ -61,3 +61,4 @@ day13sndpage.dart : 두번째 페이지
 <br>
 day13hotelbook.dart : 호텔 예약 앱(페이지 예제)
 <br>
+day13view.dart : 뷰 예제(리스트 뷰, 그리드 뷰 등)
