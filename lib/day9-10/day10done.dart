@@ -3,8 +3,8 @@ import 'day10demo.dart';
 import 'day9.dart';
 import 'day10fcolor.dart';
 // import 'package:flutter_testapp/day9mul.dart';
-import 'day11mul.dart';
-import 'textfield/day11txtfield.dart';
+import '../day11/day11mul.dart';
+import '../day11/day11txtfield.dart';
 
 void main() => runApp(MyApp());
 
