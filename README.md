@@ -1,6 +1,6 @@
 # Flutter_testapp
 
-### lib/
+### lib/day9-10/
 
 day9.dart : counter
 <br>
@@ -8,19 +8,17 @@ day9mul.dart : 구구단 출력
 <br>
 day9main.dart : Icon text 배치 연습
 <br>
-day10demo.dart : demo 만들기<br>
+day10demo.dart : demo 만들기
+<br>
 day10fcolor.dart : 색 그리드(오후 문제)
 <br>
 day10done.dart : 위의 dart 파일을 불러와서 실행
 <br>
-day11mul.dart : 구구단 1단 ~ 9단 버튼 생성 및 출력
-<br>
 
 ---
 
-### lib/textfield/
+### lib/day11/
 
-<br>
 day11addbutton.dart : 버튼을 누르면 텍스트 필드에 입력된 값이 추가
 <br>
 day11calc.dart : 계산기
@@ -28,6 +26,8 @@ day11calc.dart : 계산기
 day11cl.dart : 자기소개서 입력
 <br>
 day11main.dart : 위의 dart 파일을 불러와서 실행
+<br>
+day11mul.dart : 구구단 1단 ~ 9단 버튼 생성 및 출력
 <br>
 day11numbers.dart : 입력된 숫자의 사칙연산 값 출력
 <br>
@@ -38,6 +38,7 @@ day11txtfield.dart : 텍스트 필드 입력
 
 ### lib/day12/
 
+day12buttoncolor.dart : 버튼 색상-배경화면 변경
 <br>
 day12hotelbook.dart : 호텔 예약
 <br>
