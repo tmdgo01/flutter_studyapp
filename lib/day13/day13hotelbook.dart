@@ -400,7 +400,7 @@ class _PrivacyAgreementState extends State<PrivacyAgreement> {
           예약이 완료되었습니다. 
           예약 정보:
           성명: ${widget.reservation.userName}
-          날짜: ${DateFormat('yyyy-MM-dd – kk:mm').format}
+          날짜: ${DateFormat('yyyy-MM-dd – kk:mm').format(widget.reservation.date!)}
           조식 포함: ${widget.reservation.breakfast ? '포함' : '미포함'}
           ''';
 
