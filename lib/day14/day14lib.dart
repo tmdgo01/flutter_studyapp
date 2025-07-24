@@ -4,11 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
 
-// await player.play(UrlSource('https://example.com/audio.mp3')); // URL로 재생
+final Uri _url = Uri.parse('https://www.youtube.com/@pray94');
 
-final Uri _url = Uri.parse('https://google.com');
-
-void main() => runApp(MaterialApp(home: libexApp()));
+void main() => runApp(const MaterialApp(home: LibexApp()));
 
 Future<void> _launchUrl() async {
   if (!await launchUrl(_url)) {
@@ -16,32 +14,19 @@ Future<void> _launchUrl() async {
   }
 }
 
-class libexApp extends StatefulWidget {
-  const libexApp({super.key});
+class LibexApp extends StatefulWidget {
+  const LibexApp({super.key});
 
   @override
-  State<libexApp> createState() => _libexAppState();
+  State<LibexApp> createState() => _LibexAppState();
 }
 
-class _libexAppState extends State<libexApp> {
-  late AudioPlayer player = AudioPlayer();
-
-  @override
-  void initState() {
-    super.initState();
-
-    player = AudioPlayer();
-    player.setReleaseMode(ReleaseMode.stop);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await player.setSource(AssetSource('2.mp3')); // 경로 주의
-      await player.resume();
-    });
-  }
+class _LibexAppState extends State<LibexApp> {
+  final AudioPlayer _player = AudioPlayer();
 
   @override
   void dispose() {
-    player.dispose();
+    _player.dispose();
     super.dispose();
   }
 
@@ -56,56 +41,42 @@ class _libexAppState extends State<libexApp> {
             child: ElevatedButton(
               onPressed: _launchUrl,
               child: Text(
-                'google link',
+                'Let'
+                's go Pray',
                 style: GoogleFonts.roboto(fontStyle: FontStyle.italic),
               ),
             ),
           ),
           const SizedBox(height: 20),
-          PlayerWidget(player: player),
+          PlayerWidget(player: _player),
         ],
       ),
     );
   }
 }
 
-// PlayerWidget
 class PlayerWidget extends StatefulWidget {
   final AudioPlayer player;
 
   const PlayerWidget({required this.player, super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _PlayerWidgetState();
-  }
+  State<PlayerWidget> createState() => _PlayerWidgetState();
 }
 
 class _PlayerWidgetState extends State<PlayerWidget> {
-  final String _audioUrl =
-      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'; // 예시 URL
-  Future<void> _playUrl() async {
-    try {
-      await player.stop();
-      await player.play(UrlSource(_audioUrl));
-      setState(() {
-        _playerState = PlayerState.playing;
-      });
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('오디오 재생 실패: $e')));
-    }
-  }
+  final String _urlAudio =
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+  final String _assetAudio = '2.mp3';
 
   PlayerState? _playerState;
   Duration? _duration;
   Duration? _position;
 
-  StreamSubscription? _durationSubscription;
-  StreamSubscription? _positionSubscription;
-  StreamSubscription? _playerCompleteSubscription;
-  StreamSubscription? _playerStateChangeSubscription;
+  StreamSubscription? _durationSub;
+  StreamSubscription? _positionSub;
+  StreamSubscription? _completeSub;
+  StreamSubscription? _stateSub;
 
   bool get _isPlaying => _playerState == PlayerState.playing;
   bool get _isPaused => _playerState == PlayerState.paused;
@@ -120,65 +91,109 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     super.initState();
 
     _playerState = player.state;
-    player.getDuration().then((value) => setState(() => _duration = value));
-    player.getCurrentPosition().then(
-      (value) => setState(() => _position = value),
-    );
-    _initStreams();
-  }
 
-  @override
-  void setState(VoidCallback fn) {
-    if (mounted) {
-      super.setState(fn);
-    }
+    _durationSub = player.onDurationChanged.listen((d) {
+      if (mounted) setState(() => _duration = d);
+    });
+
+    _positionSub = player.onPositionChanged.listen((p) {
+      if (mounted) setState(() => _position = p);
+    });
+
+    _completeSub = player.onPlayerComplete.listen((_) {
+      if (mounted) {
+        setState(() {
+          _playerState = PlayerState.stopped;
+          _position = Duration.zero;
+        });
+      }
+    });
+
+    _stateSub = player.onPlayerStateChanged.listen((s) {
+      if (mounted) setState(() => _playerState = s);
+    });
   }
 
   @override
   void dispose() {
-    _durationSubscription?.cancel();
-    _positionSubscription?.cancel();
-    _playerCompleteSubscription?.cancel();
-    _playerStateChangeSubscription?.cancel();
+    _durationSub?.cancel();
+    _positionSub?.cancel();
+    _completeSub?.cancel();
+    _stateSub?.cancel();
     super.dispose();
+  }
+
+  Future<void> _playLocal() async {
+    try {
+      await player.stop();
+      await player.setSource(AssetSource(_assetAudio));
+      await player.resume();
+    } catch (e) {
+      _showError('로컬 오디오 재생 실패: $e');
+    }
+  }
+
+  Future<void> _playUrl() async {
+    try {
+      await player.stop();
+      await player.play(UrlSource(_urlAudio));
+    } catch (e) {
+      _showError('URL 오디오 재생 실패: $e');
+    }
+  }
+
+  Future<void> _pause() async {
+    await player.pause();
+  }
+
+  Future<void> _stop() async {
+    await player.stop();
+    setState(() => _position = Duration.zero);
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
   Widget build(BuildContext context) {
     final color = Theme.of(context).primaryColor;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             IconButton(
-              key: const Key('play_button'),
-              onPressed: _isPlaying ? null : _play,
-              iconSize: 48.0,
-              icon: const Icon(Icons.play_arrow),
-              color: color,
+              onPressed: !_isPlaying ? _playLocal : null,
+              icon: const Icon(Icons.music_note),
+              tooltip: '로컬 오디오 재생',
+              iconSize: 36,
+              color: Colors.deepPurple,
             ),
             IconButton(
-              key: const Key('pause_button'),
+              onPressed: !_isPlaying ? _playUrl : null,
+              icon: const Icon(Icons.cloud),
+              tooltip: 'URL 오디오 재생',
+              iconSize: 36,
+              color: Colors.indigo,
+            ),
+            IconButton(
               onPressed: _isPlaying ? _pause : null,
-              iconSize: 48.0,
               icon: const Icon(Icons.pause),
+              tooltip: '일시정지',
+              iconSize: 36,
               color: color,
             ),
             IconButton(
-              key: const Key('stop_button'),
               onPressed: _isPlaying || _isPaused ? _stop : null,
-              iconSize: 48.0,
               icon: const Icon(Icons.stop),
-              color: color,
-            ),
-            IconButton(
-              key: const Key('play_url'),
-              onPressed: _playUrl,
-              iconSize: 48.0,
-              icon: const Icon(Icons.play_circle_fill),
-              color: Colors.indigoAccent,
+              tooltip: '정지',
+              iconSize: 36,
+              color: Colors.red,
             ),
           ],
         ),
@@ -198,57 +213,10 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               : 0.0,
         ),
         Text(
-          _position != null
-              ? '$_positionText / $_durationText'
-              : _duration != null
-              ? _durationText
-              : '',
-          style: const TextStyle(fontSize: 16.0),
+          _position != null ? '$_positionText / $_durationText' : _durationText,
+          style: const TextStyle(fontSize: 16),
         ),
       ],
     );
-  }
-
-  void _initStreams() {
-    _durationSubscription = player.onDurationChanged.listen((duration) {
-      setState(() => _duration = duration);
-    });
-
-    _positionSubscription = player.onPositionChanged.listen((p) {
-      setState(() => _position = p);
-    });
-
-    _playerCompleteSubscription = player.onPlayerComplete.listen((event) {
-      setState(() {
-        _playerState = PlayerState.stopped;
-        _position = Duration.zero;
-      });
-    });
-
-    _playerStateChangeSubscription = player.onPlayerStateChanged.listen((
-      state,
-    ) {
-      setState(() {
-        _playerState = state;
-      });
-    });
-  }
-
-  Future<void> _play() async {
-    await player.resume();
-    setState(() => _playerState = PlayerState.playing);
-  }
-
-  Future<void> _pause() async {
-    await player.pause();
-    setState(() => _playerState = PlayerState.paused);
-  }
-
-  Future<void> _stop() async {
-    await player.stop();
-    setState(() {
-      _playerState = PlayerState.stopped;
-      _position = Duration.zero;
-    });
   }
 }
