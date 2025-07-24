@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
 
+// await player.play(UrlSource('https://example.com/audio.mp3')); // URL로 재생
+
 final Uri _url = Uri.parse('https://google.com');
 
-void main() => runApp(MaterialApp(home: SimpleExampleApp()));
+void main() => runApp(MaterialApp(home: libexApp()));
 
 Future<void> _launchUrl() async {
   if (!await launchUrl(_url)) {
@@ -14,14 +16,14 @@ Future<void> _launchUrl() async {
   }
 }
 
-class SimpleExampleApp extends StatefulWidget {
-  const SimpleExampleApp({super.key});
+class libexApp extends StatefulWidget {
+  const libexApp({super.key});
 
   @override
-  State<SimpleExampleApp> createState() => _SimpleExampleAppState();
+  State<libexApp> createState() => _libexAppState();
 }
 
-class _SimpleExampleAppState extends State<SimpleExampleApp> {
+class _libexAppState extends State<libexApp> {
   late AudioPlayer player = AudioPlayer();
 
   @override
@@ -80,6 +82,22 @@ class PlayerWidget extends StatefulWidget {
 }
 
 class _PlayerWidgetState extends State<PlayerWidget> {
+  final String _audioUrl =
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'; // 예시 URL
+  Future<void> _playUrl() async {
+    try {
+      await player.stop();
+      await player.play(UrlSource(_audioUrl));
+      setState(() {
+        _playerState = PlayerState.playing;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('오디오 재생 실패: $e')));
+    }
+  }
+
   PlayerState? _playerState;
   Duration? _duration;
   Duration? _position;
@@ -154,6 +172,13 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               iconSize: 48.0,
               icon: const Icon(Icons.stop),
               color: color,
+            ),
+            IconButton(
+              key: const Key('play_url'),
+              onPressed: _playUrl,
+              iconSize: 48.0,
+              icon: const Icon(Icons.play_circle_fill),
+              color: Colors.indigoAccent,
             ),
           ],
         ),
