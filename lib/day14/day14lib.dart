@@ -72,6 +72,8 @@ class _PlayerWidgetState extends State<PlayerWidget> {
 
   final String _assetAudio = '2.mp3';
 
+  final String _frozenVideo = "Frozen-360p.mp4";
+
   PlayerState? _playerState;
   Duration? _duration;
   Duration? _position;
@@ -213,6 +215,20 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               tooltip: '정지',
               iconSize: 36,
               color: Colors.red,
+            ),
+            IconButton(
+              onPressed: () async {
+                try {
+                  await player.setSource(AssetSource(_frozenVideo));
+                  await player.resume();
+                } catch (e) {
+                  _showError('비디오 재생 실패: $e');
+                }
+              },
+              icon: const Icon(Icons.video_library),
+              tooltip: '비디오 재생',
+              iconSize: 36,
+              color: Colors.green,
             ),
           ],
         ),
