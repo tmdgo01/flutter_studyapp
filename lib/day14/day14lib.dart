@@ -65,8 +65,11 @@ class PlayerWidget extends StatefulWidget {
 }
 
 class _PlayerWidgetState extends State<PlayerWidget> {
-  final String _urlAudio =
+  final String _urlAudio1 =
       'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+  final String _urlAudio2 =
+      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3';
+
   final String _assetAudio = '2.mp3';
 
   PlayerState? _playerState;
@@ -133,10 +136,19 @@ class _PlayerWidgetState extends State<PlayerWidget> {
     }
   }
 
-  Future<void> _playUrl() async {
+  Future<void> _playUrl1() async {
     try {
       await player.stop();
-      await player.play(UrlSource(_urlAudio));
+      await player.play(UrlSource(_urlAudio1));
+    } catch (e) {
+      _showError('URL 오디오 재생 실패: $e');
+    }
+  }
+
+  Future<void> _playUrl2() async {
+    try {
+      await player.stop();
+      await player.play(UrlSource(_urlAudio2));
     } catch (e) {
       _showError('URL 오디오 재생 실패: $e');
     }
@@ -172,14 +184,21 @@ class _PlayerWidgetState extends State<PlayerWidget> {
               icon: const Icon(Icons.music_note),
               tooltip: '로컬 오디오 재생',
               iconSize: 36,
-              color: Colors.deepPurple,
+              color: Colors.deepPurpleAccent,
             ),
             IconButton(
-              onPressed: !_isPlaying ? _playUrl : null,
+              onPressed: !_isPlaying ? _playUrl1 : null,
               icon: const Icon(Icons.cloud),
-              tooltip: 'URL 오디오 재생',
+              tooltip: 'URL 오디오 1 재생',
               iconSize: 36,
               color: Colors.indigo,
+            ),
+            IconButton(
+              onPressed: !_isPlaying ? _playUrl2 : null,
+              icon: const Icon(Icons.cloud),
+              tooltip: 'URL 오디오 2 재생',
+              iconSize: 36,
+              color: Colors.blueAccent,
             ),
             IconButton(
               onPressed: _isPlaying ? _pause : null,
