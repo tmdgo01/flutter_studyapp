@@ -12,8 +12,11 @@
 // 데이터 전달 : MaterialPageRoute(builder: (context) => 다음페이지(변수: 변수값))
 // 데이터 미전달 : MaterialPageRoute(builder: (context) => 다음페이지())
 
+// 예약 완료를 누른 후 'main'버튼을 누르면 /lib/day14/day14q.dart HomePage로 이동
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '/day14/day14q.dart';
 
 void main() {
   runApp(Day13HotelBookApp());
@@ -420,6 +423,15 @@ class _PrivacyAgreementState extends State<PrivacyAgreement> {
                   }
                 : null,
             child: Text('예약 완료'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+            child: Text('메인으로'),
           ),
         ],
       ),
