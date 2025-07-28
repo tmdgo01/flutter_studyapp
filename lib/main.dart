@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_testapp/day16/day16mp4.dart';
 
 void main(){
   /// 기본 구조
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        // 글자 입력
-        backgroundColor: Colors.white60,
-        body:
-        Center(
-          child: Text(
-            "aa",
-            style: TextStyle(
-            color: Colors.blue,
-              fontSize: 55,
-          ),
-          ),
-        ),
-      ),
+      home: HomeMp4(),
     ),
   );
 }
