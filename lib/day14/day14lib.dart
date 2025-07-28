@@ -41,8 +41,7 @@ class _LibexAppState extends State<LibexApp> {
             child: ElevatedButton(
               onPressed: _launchUrl,
               child: Text(
-                'Let'
-                's go Pray',
+                'Lets go Pray',
                 style: GoogleFonts.roboto(fontStyle: FontStyle.italic),
               ),
             ),
