@@ -25,6 +25,7 @@ class HomeScreen123 extends StatelessWidget{
           SizedBox(height: 30.0),
           // Image.asset('assets/duffy1.gif'),
           Image.asset('assets/duffy2.gif'),
+          // loading gif(?)
           CircularProgressIndicator(color: Colors.black,),
         ],
       ),
