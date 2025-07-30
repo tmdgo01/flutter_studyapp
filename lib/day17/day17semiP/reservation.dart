@@ -23,7 +23,7 @@ class reservation extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.asset('asset/harrppoter2.png',
+              Image.asset('assets/harrypotter2.png',
                 fit: BoxFit.contain,
                 width: 400.0,
                 height: 400.0,),

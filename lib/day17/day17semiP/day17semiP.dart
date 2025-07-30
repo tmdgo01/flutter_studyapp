@@ -24,15 +24,18 @@ class MovieApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("영화 예매 - 해리포터 시리즈", style: TextStyle(fontSize: 20)),
-              // 해리포터 1 container
+
+              /// 해리포터 1 container
               Container(
+                margin: EdgeInsets.only(top: 50),
+                width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('1.'),
+                        Text('1'),
                         Image.asset(
                           'assets/harrypotter1.png',
                           fit: BoxFit.contain,
@@ -40,25 +43,27 @@ class MovieApp extends StatelessWidget {
                           height: 170,
                         ),
 
-                        Text('해리포터와 마법사의 돌'),
+                        Text('해리포터와\n 마법사의 돌'),
+
                         ElevatedButton(onPressed: () {
                           Navigator.push(context,MaterialPageRoute(builder: (context)=>yeme()));
                         }, child: Text('예매')),
                       ],
                     ),
-                    Row(
-                      children: [
-                        ElevatedButton(onPressed: () {}, child: Text("1시")),
-                        ElevatedButton(onPressed: () {}, child: Text("3시")),
-                        ElevatedButton(onPressed: () {}, child: Text("5시")),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     ElevatedButton(onPressed: () {}, child: Text("1시")),
+                    //     ElevatedButton(onPressed: () {}, child: Text("3시")),
+                    //     ElevatedButton(onPressed: () {}, child: Text("5시")),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
 
-              // 해리포터 2 container
+              /// 해리포터 2 container
               Container(
+                margin: EdgeInsets.only(top: 50),
                 child:
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -71,23 +76,12 @@ class MovieApp extends StatelessWidget {
                           fit: BoxFit.contain,
                           width: 170.0,
                           height: 170.0,),
-                        Text("해리포터와 비밀의 방",
+                        Text("해리포터와\n 비밀의 방",
                           style: TextStyle(fontSize: 20.0),
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
                         ElevatedButton(onPressed: () {
-                          Navigator.push(context, MaterialPageRoute
-                            (builder: (BuildContext context) {
-                            return reservation();
-                          },
-                          ),
-                          );
-                        },
-                          child:  Text("예매"),
+                          Navigator.push(context,MaterialPageRoute(builder: (context)=>reservation()));
+                        }, child: Text('예매')
                         ),
                       ],
                     ),
@@ -95,21 +89,22 @@ class MovieApp extends StatelessWidget {
                 ),
               ),
 
-              // 해리포터 3 container
+              /// 해리포터 3 container
               Container(
                 margin: EdgeInsets.only(top: 20),
                 width: double.infinity,
-                height: 400,
+                height: 300,
                 child: ListView.builder(
                   itemCount: harryPotterList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       margin: EdgeInsets.only(top: 20),
-                      height: 200,
+                      height: 170,
                       padding: EdgeInsets.all(20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
+                          Text("3", style: TextStyle(fontSize: 20.0),),
                           Image.asset(
                             harryPotterList[index].imageUrl,
                             width: 150,
@@ -146,7 +141,7 @@ class HarryPotter {
 }
 
 const harryPotterList = [
-  HarryPotter("assets/harrypotter3.png", "해리포터 3"),
+  HarryPotter("assets/harrypotter3.png", "해리 포터와\n 아즈카반의 죄수"),
 ];
 
 class HarryPotter3Page extends StatelessWidget {
@@ -196,7 +191,7 @@ class page extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('1.'),
+                Text("1", style: TextStyle(fontSize: 20.0),),
                 Image.asset(
                   'assets/harrypotter1.png',
                   fit: BoxFit.contain,

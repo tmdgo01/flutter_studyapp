@@ -12,7 +12,14 @@ class yeme extends StatelessWidget {
         children: [
           Text('해리포터와 마법사의 돌'),
           SizedBox(height: 50),
-          Image.asset('assets/img/h1.webp'),
+          Image.asset('assets/harrypotter1.png'),
+          Row(
+            children: [
+              ElevatedButton(onPressed: () {}, child: Text("1시")),
+              ElevatedButton(onPressed: () {}, child: Text("3시")),
+              ElevatedButton(onPressed: () {}, child: Text("5시")),
+            ],
+          )
         ],
       ),
     );
