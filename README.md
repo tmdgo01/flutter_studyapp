@@ -99,17 +99,19 @@ rule.dart : 기본 구조
 ### lib/day17/
 
 day17.dart : 기본 구조
-<br>
+<br> 
 * /day17const/
 <br>
 day17color.dart : day17screen.dart에서 사용할 color const
 <br>
+
 * /day17screen/
 <br>
 day17chessboard.dart : 구현 중(컨테이너를 이용한 체스판 그리기)
 <br>
 day17screen.dart : 색상 및 이미지 블록 지정된 위치에 그리기
 <br>
+
 * /day17semiP/ : 팀을 구성하여 간단한 프로젝트 구현(아이디어 회의부터 구현까지), 영화 예매 앱
 <br>
 day17semiP.dart : 메인 페이지 및 해리 포터 3 예약 부분(팀원 코드 병합)
