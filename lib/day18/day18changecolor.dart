@@ -1,53 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_testapp/day12/day12buttoncolor.dart';
+import 'dart:math';
 
-void main(){
-  runApp(day18colorchange());
+void main() {
+  runApp(ColorChangerApp());
 }
 
-class day18colorchange extends StatelessWidget {
-  const day18colorchange({super.key});
-
+class ColorChangerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ButtonColorWidget(),
-          ),
-        ),
-      ),
+
+      home: ColorChangerScreen(),
     );
   }
 }
 
-class ButtonColorWidget extends StatefulWidget {
+class ColorChangerScreen extends StatefulWidget {
   @override
-  _ButtonColorWidgetState creatState() => _ButtonColorWidgetState();
-  
+  _ColorChangerScreenState createState() => _ColorChangerScreenState();
 }
 
-class _ButtonColorWidgetState extends State<ButtonColorWidget>{
-  Color _day18Color = Colors.white30;
+class _ColorChangerScreenState extends State<ColorChangerScreen> {
+  Color containerColor = Colors.grey;
 
-  void _day18changeColor(Color color){
+  void changeColor() {
     setState(() {
-      _day18Color = color;
+      containerColor = Color(Random().nextInt(0xFFFFFFFF)).withOpacity(1.0);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: _day18Color,
-      child: Column(
+    return Scaffold(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(onPressed: () => _day18changeColor(child: Text("change"), Colors.white30), child: null,),
+          // 가운데 버튼
+          Center(
+            child: ElevatedButton(
+              onPressed: changeColor,
+              child: Text("색상 변경"),
+            ),
+          ),
+          SizedBox(height: 40),
+          // 아래 컨테이너
+          Container(
+            width: 200,
+            height: 200,
+            color: containerColor,
+          ),
         ],
       ),
     );
