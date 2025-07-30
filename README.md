@@ -71,7 +71,7 @@ day13view.dart : 뷰 예제(리스트 뷰, 그리드 뷰 등)
 
 day14lib.dart : assets 예제(mp3 재생, 웹 이동 버튼 등)
 <br>
-day14q.dart : 그리드 뷰, 리스트 뷰를 사용하여 페이지 이동 예제
+day14q.dart : 탭 뷰, 그리드 뷰, 리스트 뷰를 사용하여 페이지 이동 예제
 <br>
 
 --- 
@@ -101,16 +101,18 @@ rule.dart : 기본 구조
 day17.dart : 기본 구조
 <br> 
 * /day17const/
+  <br>
 day17color.dart : day17screen.dart에서 사용할 color const
 <br>
 
 * /day17screen/
+  <br>
 day17chessboard.dart : 구현 중(컨테이너를 이용한 체스판 그리기)
 <br>
 day17screen.dart : 색상 및 이미지 블록 지정된 위치에 그리기
 <br>
-
 * /day17semiP/ : 팀을 구성하여 간단한 프로젝트 구현(아이디어 회의부터 구현까지), 영화 예매 앱
+<br>
 day17semiP.dart : 메인 페이지 및 해리 포터 3 예약 부분(팀원 코드 병합)
 <br>
 reservation.dart : 팀원이 작성한 해리 포터 2 예약 부분

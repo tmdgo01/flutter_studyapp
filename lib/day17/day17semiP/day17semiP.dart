@@ -93,7 +93,7 @@ class MovieApp extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 20),
                 width: double.infinity,
-                height: 300,
+                height: 200,
                 child: ListView.builder(
                   itemCount: harryPotterList.length,
                   itemBuilder: (BuildContext context, int index) {
