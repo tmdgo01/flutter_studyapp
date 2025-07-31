@@ -21,7 +21,7 @@ class HomeScreen123 extends StatelessWidget{
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/shinjjangu_work.jpg'),
+          Image.asset('assets/jjang2.jpg'),
           SizedBox(height: 30.0),
           // Image.asset('assets/duffy1.gif'),
           Image.asset('assets/duffy2.gif'),
