@@ -1,3 +1,4 @@
+// day 19a.dart
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -30,7 +31,7 @@ class Day19A extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.amber,
         // 이 부분
-        title: Text("A"),
+        title: Text("Americano"),
         centerTitle: true,
         actions: [
           IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => CoffeExAd(),),);},

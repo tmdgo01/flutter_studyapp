@@ -135,3 +135,26 @@ day1 - day9 : https://github.com/tmdgo01/DartStudy
 <br>
 ├── day18tabview.dart : 탭 뷰에 웹, 영화 예매, 호텔 예약 앱 불러오기
 
+--- 
+
+### lib/day19/
+
+├── day19a.dart : compose 아메리카노 상세 웹뷰 페이지
+<br>
+├── day19compose.dart : compose 메인 웹뷰 페이지
+<br>
+├── day19frameauto.dart : 리스트에 있는 이미지를 3초마다 넘기는 스마트 액자
+<br>
+├── day19framemap.dart : 이미지를 map에 넣어서 수동으로 넘기는 스마트 액자
+<br>
+├── day19timer.dart : timer 예제
+<br>
+├── day19webview.dart : compose 파인선셋 상세 웹뷰 페이지
+<br>
+├── ppp.dart : compose main(이미지 버튼 등) 페이지
+<br>
+
+--- 
+
+### lib/day20/
+

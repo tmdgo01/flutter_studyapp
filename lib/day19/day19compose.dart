@@ -1,3 +1,4 @@
+// day19compose.dart
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -5,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'ppp.dart';
 
 // url 변경
-final composemainurl = Uri.parse("https://composecoffee.com/menu/");
+final composemainurl = Uri.parse("https://composecoffee.com/");
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
