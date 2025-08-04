@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'day21color.dart';
 // TODO : Navigator 사용
 class Day21setting extends StatefulWidget {
@@ -26,7 +27,7 @@ class _Day21settingState extends State<Day21setting> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // 숫자 자리수마다 이미지 표시
+          // 숫자 자리 수마다 이미지 표시
           Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +49,6 @@ class _Day21settingState extends State<Day21setting> {
 
           const SizedBox(height: 40),
 
-          // 슬라이더
           Slider(
             value: _currentValue,
             min: 1,
@@ -56,7 +56,7 @@ class _Day21settingState extends State<Day21setting> {
             divisions: 19999,
             label: currentInt.toString(),
             activeColor: Color3,
-            inactiveColor: Color3.withOpacity(0.3),
+            inactiveColor: Color3,
             onChanged: (value) {
               setState(() {
                 _currentValue = value;
@@ -65,8 +65,8 @@ class _Day21settingState extends State<Day21setting> {
           ),
 
           Text(
-            '현재 숫자: $currentInt',
-            style: TextStyle(fontSize: 20, color: Color3),
+            '$currentInt',
+            style: GoogleFonts.comingSoon(fontSize: 20, color: Color3, fontWeight: FontWeight.w900),
           ),
         ],
       ),
