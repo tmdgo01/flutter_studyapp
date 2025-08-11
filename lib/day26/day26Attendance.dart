@@ -28,7 +28,7 @@ class Day26Attendance extends StatefulWidget {
 class _Day26AttendanceState extends State<Day26Attendance> {
   late GoogleMapController mapController;
   String checkInStatus = "출근 전입니다.";
-  bool isCheckedIn = false; // ✅ 출근 상태 토글
+  bool isCheckedIn = false;
 
   final LatLng companyLocation = LatLng(35.171422, 126.888097);
   final double checkInRadius = 100;
@@ -41,6 +41,7 @@ class _Day26AttendanceState extends State<Day26Attendance> {
   LatLng? currentLocation;
   StreamSubscription<Position>? positionStream;
   bool followUser = true;
+  bool isWithinRadius = true; // 🔴 반경 내/외 상태 추적
 
   @override
   void initState() {
@@ -93,9 +94,16 @@ class _Day26AttendanceState extends State<Day26Attendance> {
       ),
     ).listen((Position position) {
       LatLng newLocation = LatLng(position.latitude, position.longitude);
+      double distance = Geolocator.distanceBetween(
+        newLocation.latitude,
+        newLocation.longitude,
+        companyLocation.latitude,
+        companyLocation.longitude,
+      );
 
       setState(() {
         currentLocation = newLocation;
+        isWithinRadius = distance <= checkInRadius;
       });
 
       if (followUser && mapController != null) {
@@ -108,7 +116,6 @@ class _Day26AttendanceState extends State<Day26Attendance> {
 
   Future<void> toggleAttendance() async {
     if (!isCheckedIn) {
-      // 출근 체크
       try {
         Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high,
@@ -123,6 +130,7 @@ class _Day26AttendanceState extends State<Day26Attendance> {
 
         setState(() {
           currentLocation = LatLng(position.latitude, position.longitude);
+          isWithinRadius = distance <= checkInRadius;
         });
 
         if (distance <= checkInRadius) {
@@ -131,10 +139,6 @@ class _Day26AttendanceState extends State<Day26Attendance> {
             checkInStatus = "출근 완료: ${now.hour}시 ${now.minute}분";
             isCheckedIn = true;
           });
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("출근 체크 완료!")),
-          );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("출근 체크 실패: 회사 위치에서 너무 멀리 있습니다.")),
@@ -146,15 +150,10 @@ class _Day26AttendanceState extends State<Day26Attendance> {
         );
       }
     } else {
-      // 출근 취소
       setState(() {
         isCheckedIn = false;
         checkInStatus = "출근 전입니다.";
       });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("출근이 취소되었습니다.")),
-      );
     }
   }
 
@@ -175,8 +174,10 @@ class _Day26AttendanceState extends State<Day26Attendance> {
         circleId: CircleId("company_radius"),
         center: companyLocation,
         radius: checkInRadius,
-        fillColor: Colors.blue.withOpacity(0.2),
-        strokeColor: Colors.blue,
+        fillColor: isWithinRadius
+            ? Colors.blue.withOpacity(0.2)
+            : Colors.red.withOpacity(0.2),
+        strokeColor: isWithinRadius ? Colors.blue : Colors.red,
         strokeWidth: 2,
       ),
     };
@@ -198,7 +199,7 @@ class _Day26AttendanceState extends State<Day26Attendance> {
             circles: getCircles(),
           ),
 
-          // 출근 상태 표시
+          // 출근 상태 텍스트
           Positioned(
             top: 50,
             left: 20,
@@ -216,7 +217,7 @@ class _Day26AttendanceState extends State<Day26Attendance> {
             ),
           ),
 
-          // 내 위치 버튼
+          // 내 위치 이동 버튼
           Positioned(
             top: 50,
             right: 20,
@@ -237,16 +238,16 @@ class _Day26AttendanceState extends State<Day26Attendance> {
         ],
       ),
 
-      // 출근 체크 토글 버튼 (왼쪽 하단)
+      // 출근 토글 버튼
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(left: 30),
         child: Align(
           alignment: Alignment.bottomLeft,
           child: FloatingActionButton(
             onPressed: toggleAttendance,
-            backgroundColor: isCheckedIn ? Colors.green : Colors.grey,
+            backgroundColor: isCheckedIn ? Colors.red : Colors.blue,
             child: Icon(
-              isCheckedIn ? Icons.check_box : Icons.check_box_outline_blank,
+              isCheckedIn ? Icons.logout : Icons.login,
               color: Colors.white,
             ),
             tooltip: isCheckedIn ? "출근 취소" : "출근 체크",
